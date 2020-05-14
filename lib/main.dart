@@ -73,18 +73,27 @@ class _MyHomePageState extends State<MyHomePage>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height: 100,
-                  // child: Image.asset(
-                  //   'asset/logo.png',
-                  //   fit: BoxFit.contain,
-                  // ),
-                  child: Text('BrownWounded',
-                              style: TextStyle(fontSize: 44,
+                  height: 75,
+                  child: Text('BrownBois',
+                              style: TextStyle(fontSize: 48,
                                                 color: Colors.blue,
                                                 fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.bold),
-                                              ),
-                              
+                                                fontWeight: FontWeight.bold)
+                  )
+                ),
+                SizedBox(
+                  height: 100,
+                  child: Image.asset(
+                    'assets/data.jpg',
+                    fit: BoxFit.contain,
+                  ),
+                  // child: Text('BrownWounded',
+                  //             style: TextStyle(fontSize: 44,
+                  //                               color: Colors.blue,
+                  //                               fontStyle: FontStyle.italic,
+                  //                               fontWeight: FontWeight.bold),
+                  //             ),
+                          
                 ),
                 SizedBox(height: 45),
                 userNameField, 
