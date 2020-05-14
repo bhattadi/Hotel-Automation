@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height: 75,
+                  height: 60,
                   child: Text('BrownBois',
                               style: TextStyle(fontSize: 48,
                                                 color: Colors.blue,
@@ -82,18 +82,11 @@ class _MyHomePageState extends State<MyHomePage>
                   )
                 ),
                 SizedBox(
-                  height: 100,
+                  height: 75,
                   child: Image.asset(
-                    'assets/data.jpg',
+                    'assets/checkin.png',
                     fit: BoxFit.contain,
-                  ),
-                  // child: Text('BrownWounded',
-                  //             style: TextStyle(fontSize: 44,
-                  //                               color: Colors.blue,
-                  //                               fontStyle: FontStyle.italic,
-                  //                               fontWeight: FontWeight.bold),
-                  //             ),
-                          
+                  ),    
                 ),
                 SizedBox(height: 45),
                 userNameField, 
