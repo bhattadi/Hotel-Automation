@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
             contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
             hintText: 'Username',
             border:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(32))));
+                OutlineInputBorder(borderRadius: BorderRadius.circular(32))));
 
     final passwordField = TextField(
         controller: myControllerPassword,
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
             contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
             hintText: 'Password',
             border:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(32))));
+                OutlineInputBorder(borderRadius: BorderRadius.circular(32))));
 
     final loginButton = Material(
         elevation: 5.0,
@@ -73,11 +73,12 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
             onPressed: () {
               setState(() {
-                if(myControllerUsername.text == _tempUserName && myControllerPassword.text == _tempPassword) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => NextScreen()),
-                );
+                if (myControllerUsername.text == _tempUserName &&
+                    myControllerPassword.text == _tempPassword) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NextScreen()),
+                  );
                 }
               });
             },
@@ -133,25 +134,22 @@ class NextScreen extends StatelessWidget {
     final title = 'Menu';
 
     void chooseNextPage(String lab) {
-      if(lab == "Book new reservation") {
+      if (lab == "Book") {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => bookingPage()),
         );
-      }
-      else if(lab == "Edit reservation") {
+      } else if (lab == "Edit") {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => editBookingPage()),
         );
-      }
-      else if(lab == "Settings") {
+      } else if (lab == "Settings") {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => settingPage()),
         );
       }
-
     }
 
     Column _buildIcon(Color color, IconData icon, String label) {
@@ -186,8 +184,8 @@ class NextScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildIcon(Colors.blue, Icons.credit_card, "Book new reservation"),
-          _buildIcon(Colors.blue, Icons.edit, "Edit reservation"),
+          _buildIcon(Colors.blue, Icons.credit_card, "Book"),
+          _buildIcon(Colors.blue, Icons.edit, "Edit"),
         ],
       ),
     );
@@ -196,7 +194,7 @@ class NextScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildIcon(Colors.blue, Icons.help, "Unknow, TBD"),
+          _buildIcon(Colors.blue, Icons.help, "Unknown"),
           _buildIcon(Colors.blue, Icons.settings, "Settings"),
         ],
       ),
@@ -206,30 +204,26 @@ class NextScreen extends StatelessWidget {
       title: title,
       home: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: true,
           title: Text(title),
-//          actions: <Widget>[
-//            Center(
-//              child:Container(
-//                child:IconButton(
-//                icon: Icon(Icons.arrow_back), onPressed: (){},
-//                ),
-//                alignment: Alignment(0,0),
-//              ),
-//            ),
-//          ],
-        ),
-        body: Container(
-          margin: EdgeInsets.only(bottom: 100),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              topRow,
-              bottomRow,
-            ],
+          leading: IconButton(
+            icon:Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context, false),
           ),
         ),
+        body: Container(
+//            margin: EdgeInsets.only(bottom: 300),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                topRow,
+                bottomRow,
+              ],
+            ),
+          ),
+
       ),
     );
   }
