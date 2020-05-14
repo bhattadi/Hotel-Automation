@@ -73,12 +73,12 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
             onPressed: () {
               setState(() {
-                //if(myControllerUsername.text == _tempUserName && myControllerPassword == _tempPassword) {
+                if(myControllerUsername.text == _tempUserName && myControllerPassword.text == _tempPassword) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => NextScreen()),
                 );
-                //}
+                }
               });
             },
             child: Text('Login',
