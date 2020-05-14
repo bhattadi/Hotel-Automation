@@ -3,127 +3,101 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(HotelAutomation());
 
-class MyApp extends StatelessWidget {
+class HotelAutomation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Startup Name Generator',
+      title: 'Hotel Automation',
       theme: ThemeData(
-        primaryColor: Colors.white,
+        primarySwatch: Colors.blue,
       ),
-      home: RandomWords(),
+      home: MyHomePage(title: 'Flutter Login')
     );
   }
 }
 
-class RandomWords extends StatefulWidget
-{
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title});
+  final String title;
   @override
-  RandomWordsState createState() => RandomWordsState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class RandomWordsState extends State<RandomWords>
+class _MyHomePageState extends State<MyHomePage>
 {
-    // TODO Add build() method
-    final List<WordPair> _suggestions = <WordPair>[];
-    final Set<WordPair> _saved = Set<WordPair>();
-    final TextStyle _biggerFont = TextStyle(fontSize: 18.0);
+  TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 26);
 
-    @override
-    void _pushSaved()
-    {
-      Navigator.of(context).push(
-        MaterialPageRoute<void>(
-          builder: (BuildContext context)
-          {
-            final Iterable<ListTile> tiles = _saved.map(
-              (WordPair pair) 
-              {
-                return ListTile(
-                  title: Text
-                  (
-                    pair.asPascalCase,
-                    style: _biggerFont,
-                  ),
-                );
-              },
-            );
-            final List<Widget> divided = ListTile
-              .divideTiles(
-                context: context,
-                tiles: tiles,
-              )
-              .toList();
-            return Scaffold(
-              appBar: AppBar(
-                title: Text('Saved Suggestions'),
-              ),
-              body: ListView(children: divided),
-            );
-          }
-        )
-      );
-    }
+  @override
+  Widget build(BuildContext context)
+  {
+    final userNameField = TextField(
+      obscureText: false,
+      style: style,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: 'Username',
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32))));
+    
+    final passwordField = TextField(
+      obscureText: true,
+       style: style, 
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: 'Password',
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32))));
 
-    Widget build(BuildContext context)
-    {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Startup Name Generator'),
-          actions: <Widget>[IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),]
+    final loginButton = Material(
+      elevation: 5.0,
+      borderRadius: BorderRadius.circular(30),
+      color: Colors.lightBlue,
+      child: MaterialButton(
+        minWidth: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        onPressed: (){},
+        child: Text('Login',
+                    textAlign: TextAlign.center,
+                    style: style.copyWith(color: Colors.white,
+                    fontWeight: FontWeight.bold))));
+
+    return Scaffold(
+      body: Center(
+        child: Container(
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(36),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 100,
+                  // child: Image.asset(
+                  //   'asset/logo.png',
+                  //   fit: BoxFit.contain,
+                  // ),
+                  child: Text('BrownWounded',
+                              style: TextStyle(fontSize: 44,
+                                                color: Colors.blue,
+                                                fontStyle: FontStyle.italic,
+                                                fontWeight: FontWeight.bold),
+                                              ),
+                              
+                ),
+                SizedBox(height: 45),
+                userNameField, 
+                SizedBox(height: 25),
+                passwordField,
+                SizedBox(height: 35),
+                loginButton,
+                SizedBox(height: 15),
+              ],
+            ),
+          ),
         ),
-        body: _buildSuggestions(),
-      );
-    }
-
-    Widget _buildSuggestions()
-    {
-      return ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemBuilder: (context, i)
-        {
-          if(i.isOdd) return Divider();
-
-          final index = i ~/ 2;
-          if(index >= _suggestions.length)
-          {
-            _suggestions.addAll(generateWordPairs().take(10));
-          }
-          return _buildRow(_suggestions[index]);
-        }
-      );
-    }
-
-    Widget _buildRow(WordPair pair)
-    {
-      final bool alreadySaved = _saved.contains(pair);
-      return ListTile(
-        title: Text(
-          pair.asPascalCase, 
-          style: _biggerFont,
-        ),
-        trailing: Icon(
-          alreadySaved ? Icons.favorite : Icons.favorite_border,
-          color: alreadySaved ? Colors.red : null,
-        ),
-        onTap: ()
-        {
-          setState(() {
-            if(alreadySaved)
-            {
-              _saved.remove(pair);
-            }
-            else
-            {
-              _saved.add(pair);
-            }
-          });
-        },
-      );
-    }
+      ),
+    ); 
+  }
 }
-
