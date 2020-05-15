@@ -1,6 +1,9 @@
 //The Menu Page after the user has logged in
 
 import 'package:flutter/material.dart';
+import 'booking.dart';
+import 'editReservation.dart';
+import 'settings.dart';
 
 //The NextScreen class defines how to open 
 //new pages given a chosen menu item
@@ -10,20 +13,27 @@ class NextScreen extends StatelessWidget {
     final title = 'Menu';
 
     void chooseNextPage(String lab) {
+      //If the user clicks on book the open the book Page
       if (lab == "Book") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => bookingPage()),
+          MaterialPageRoute(builder: (context) => BookingPage()),
         );
-      } else if (lab == "Edit") {
+      } 
+
+      //If the user clicks on edit button to open Edit Page
+      else if (lab == "Edit") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => editBookingPage()),
+          MaterialPageRoute(builder: (context) => EditBookingPage()),
         );
-      } else if (lab == "Settings") {
+      } 
+      
+      //If the user clicks on settings button to open Settings Page
+      else if (lab == "Settings") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => settingPage()),
+          MaterialPageRoute(builder: (context) => SettingPage()),
         );
       }
     }
@@ -95,11 +105,12 @@ class NextScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 topRow,
+                Text('', style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.1),),
                 bottomRow,
+                Text('', style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.1),),
               ],
             ),
           ),
-
       ),
     );
   }
@@ -116,24 +127,3 @@ class NextScreen extends StatelessWidget {
 //    );
 //  }
 //}
-
-class bookingPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class editBookingPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class settingPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}

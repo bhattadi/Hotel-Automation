@@ -81,6 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
             onPressed: () {
               setState(() {
+                //Add logic about whether an account exists in the database
+                //The key will be a pair of a username and password
+                //The value will be an Account object (Account will be its own class)
                 if (myControllerUsername.text == _tempUserName &&
                     myControllerPassword.text == _tempPassword) {
                   Navigator.push(
