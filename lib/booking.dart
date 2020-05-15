@@ -27,29 +27,24 @@ class _BookingPageState extends State<BookingPage> {
       Intl.systemLocale = 'en_En'; // to change the calendar format based on localization
       super.initState();
     }
-    return MaterialApp (
-      home: Scaffold(
-        body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(18),
-          child: SomeCalendar(
-            primaryColor: Color(0xff5833A5),
-            mode: SomeMode.Range,
-            isWithoutDialog: true,
-            selectedDates: selectedDates,
-            startDate: Jiffy().subtract(years: 3),
-            lastDate: Jiffy().add(months: 9),
-            done: (date) {
-              setState(() {
-                selectedDates = date;
-                //showSnackbar(selectedDates.toString());
-              });
-            },
-          ),
-        )
-        ),
-        ),
-      );
+    showDialog(
+            context: context,
+            builder: (_) => SomeCalendar(
+              mode: SomeMode.Range,
+              startDate: Jiffy().subtract(years: 3),
+              lastDate: Jiffy().add(months: 9),
+              selectedDates: selectedDates,
+              isWithoutDialog: false,
+              primaryColor: Colors.red,
+              done: (date) {
+                setState(() {
+                  selectedDates = date;
+                  //showSnackbar(selectedDates.toString());
+                });
+              },
+            )
+          );
+
+    }
   }
-}
 
