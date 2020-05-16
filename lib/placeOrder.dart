@@ -5,6 +5,12 @@ class PlaceOrder extends StatefulWidget {
   _PlaceOrder createState() => _PlaceOrder();
   }
 
+//This file is basically if the order goes successful
+//the user will be directed to a confirmation page
+//This screen just says the transaction was good
+//and more information about reservations will be coming
+//Eventually we would like to add the ability to email
+//Booking details to the user as a pdf
 class _PlaceOrder extends State<PlaceOrder>
 {
   @override

@@ -8,6 +8,13 @@ class ReviewDetails extends StatefulWidget {
   _ReviewDetails createState() => _ReviewDetails();
 }
 
+//This screen will layout all the information about the
+//user's booking. The info from dates selected, check in/out
+//times, and contact info will all be shown in a scrollable
+//screen to be able for the user to verify the data and 
+//place the final order
+//Widgets follow a row format
+//For example each row looks like "Name: Joe Smith"
 class _ReviewDetails extends State<ReviewDetails>
 {
   Widget build(BuildContext context)

@@ -283,6 +283,7 @@ class _BookingPageState extends State<BookingPage> {
   }
 }
 
+//Function to get the Selected Date Range in a different file
 String getDateRange()
 {
   return selectedDates.length != 0 ? "From: " + 
@@ -291,11 +292,13 @@ String getDateRange()
   : "Please Select Dates";
 }
 
+//Function to get the Check In Time in a different file
 String getCheckInTime()
 {
   return formatTimeOfDay(_timeIn);
 }
 
+//Function to get the Check Out Time in a different file
 String getCheckOutTime()
 {
   return formatTimeOfDay(_timeOut);

@@ -6,12 +6,18 @@ class ConfirmBooking extends StatefulWidget {
   _ConfirmBooking createState() => _ConfirmBooking();
 }
 
+//Declared Controller Variables that will hold values
+//that the user will enter in a textfield
 final _firstName = TextEditingController();
 final _lastName = TextEditingController();
 final _emailAddress = TextEditingController();
 final _phoneNumber = TextEditingController();
 final _creditCardNumber = TextEditingController();
 
+//This class aims to lay the a form styled application
+//Where the user is prompted to enter information in
+//empty textboxes where information is layed in a row
+//with the text on the left and textfield on the right
 class _ConfirmBooking extends State<ConfirmBooking>
 {
   @override
@@ -45,6 +51,10 @@ class _ConfirmBooking extends State<ConfirmBooking>
                   children: [
                     Text('First Name: ',
                           style: TextStyle(fontSize: 20),),   
+
+                    //This container is the format of the text field that the user
+                    //will put their data into and the app will save this info
+                    //in the controller variables defined above
                     Container(
                       width: MediaQuery.of(context).size.width * 0.5,
                       height: MediaQuery.of(context).size.height * 0.05,
@@ -166,26 +176,31 @@ class _ConfirmBooking extends State<ConfirmBooking>
   }
 }
 
+//Function to get the first name in a different file
 String getFirstName()
 {
   return _firstName.text.toString();
 }
 
+//Function to get the last name in a different file
 String getLastName()
 {
   return _lastName.text.toString();
 }
 
+//Function to get the phone number in a different file
 String getPhoneNumber()
 {
   return _phoneNumber.text.toString();
 }
 
+//Function to get the email address in a different file
 String getEmailAddress()
 {
   return _emailAddress.text.toString();
 }
 
+//Get the credit card info in another file
 String getCreditCard()
 {
   return _creditCardNumber.text.toString();
