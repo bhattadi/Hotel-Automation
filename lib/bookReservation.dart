@@ -26,13 +26,14 @@ class _ConfirmBooking extends State<ConfirmBooking>
           ),
         title: Text('Confirm Booking'),
       ),
-      body: Column(
+      body: SingleChildScrollView(
+        child: Column(
         children: [
           Padding(
             padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.05),
             child: Center(
-                  child: Text('Reservation Details',
-                                style: TextStyle(fontSize: 36),)
+                  child: Text('Contact Information',
+                                style: TextStyle(fontSize: 32),)
           )
         ),
         Padding(
@@ -50,7 +51,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                       child: TextField(
                         controller: _firstName,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(50, 0, 50, 20),
+                          contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                           border: OutlineInputBorder(),
                           hintText: 'Enter Name'
                         ),
@@ -70,7 +71,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                       child: TextField(
                         controller: _lastName,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(50, 0, 50, 20),
+                          contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                           border: OutlineInputBorder(),
                           hintText: 'Enter Name'
                         ),
@@ -90,7 +91,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                       child: TextField(
                         controller: _phoneNumber,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(22, 0, 20, 20),
+                          contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                           border: OutlineInputBorder(),
                           hintText: 'Enter Phone Number'
                         ),
@@ -110,7 +111,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                       child: TextField(
                         controller: _emailAddress,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(50, 0, 50, 20),
+                          contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                           border: OutlineInputBorder(),
                           hintText: 'Enter Email'
                         ),
@@ -130,7 +131,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                       child: TextField(
                         controller: _creditCardNumber,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(35, 0, 30, 20),
+                          contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                           border: OutlineInputBorder(),
                           hintText: 'Enter Credit Card'
                         ),
@@ -160,31 +161,32 @@ class _ConfirmBooking extends State<ConfirmBooking>
         ]
       ),
     ),
+    ),
     );
   }
 }
 
 String getFirstName()
 {
-  return _firstName.toString();
+  return _firstName.text.toString();
 }
 
 String getLastName()
 {
-  return _lastName.toString();
+  return _lastName.text.toString();
 }
 
 String getPhoneNumber()
 {
-  return _phoneNumber.toString();
+  return _phoneNumber.text.toString();
 }
 
 String getEmailAddress()
 {
-  return _emailAddress.toString();
+  return _emailAddress.text.toString();
 }
 
 String getCreditCard()
 {
-  return _creditCardNumber.toString();
+  return _creditCardNumber.text.toString();
 }

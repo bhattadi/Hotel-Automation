@@ -12,12 +12,20 @@ class BookingPage extends StatefulWidget {
   _BookingPageState createState() => _BookingPageState();
 }
 
+List<DateTime> selectedDates = List();
+TimeOfDay _timeIn = TimeOfDay.now();
+TimeOfDay _timeOut = TimeOfDay.now();
+double baseRate = 60.0;
+
+String formatTimeOfDay(TimeOfDay tod) {
+  final now = new DateTime.now();
+  final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
+  final format = DateFormat.jm(); //"6:00 AM"
+  return format.format(dt);
+}
+
 class _BookingPageState extends State<BookingPage> {
   @override
-  List<DateTime> selectedDates = List();
-  TimeOfDay _timeIn = TimeOfDay.now();
-  TimeOfDay _timeOut = TimeOfDay.now();
-  double baseRate = 60.0;
 
   void initState() {
     initializeDateFormatting();
@@ -54,13 +62,6 @@ class _BookingPageState extends State<BookingPage> {
                 });
               },
             ));
-  }
-
-  String formatTimeOfDay(TimeOfDay tod) {
-    final now = new DateTime.now();
-    final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
-    final format = DateFormat.jm(); //"6:00 AM"
-    return format.format(dt);
   }
 
   SizedBox _buildCheckInButton(String label) {
@@ -254,10 +255,7 @@ class _BookingPageState extends State<BookingPage> {
                   ]),
               Row(
                 children: [
-                  Text(
-                    '',
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * 0.1),
+                  Text('', style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.05),
                   )
                 ],
               ),
@@ -285,3 +283,20 @@ class _BookingPageState extends State<BookingPage> {
   }
 }
 
+String getDateRange()
+{
+  return selectedDates.length != 0 ? "From: " + 
+  new DateFormat.yMMMd().format(selectedDates.first) +
+  '\n' + '\n' + "To: " + new DateFormat.yMMMd().format(selectedDates.last)
+  : "Please Select Dates";
+}
+
+String getCheckInTime()
+{
+  return formatTimeOfDay(_timeIn);
+}
+
+String getCheckOutTime()
+{
+  return formatTimeOfDay(_timeOut);
+}
