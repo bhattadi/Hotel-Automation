@@ -118,9 +118,14 @@ class _BookingPageState extends State<BookingPage> {
     @override
     SizedBox checkIn = _buildCheckInButton("Check-in Time");
     SizedBox checkOut = _buildCheckOutButton("Check-out Time");
-    return Scaffold(
+    return MaterialApp(
+    home: Scaffold(
       appBar: AppBar(
         title: Text("Book Reservation"),
+        leading: IconButton(
+            icon:Icon(Icons.arrow_back_ios),
+            onPressed: () => Navigator.pop(context, false),
+          ),
       ),
       body: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
@@ -275,6 +280,7 @@ class _BookingPageState extends State<BookingPage> {
               ),
             ]),
       ),
+    ),
     );
   }
 }

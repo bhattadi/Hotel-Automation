@@ -16,8 +16,17 @@ class _PlaceOrder extends State<PlaceOrder>
       body: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
         child: Center(
-        child: Text("Thank you for your order! Would you like a receipt or emailed copy of your reciept?",
-                    style: TextStyle(fontSize: 28))
+              child: Column(
+                  children: [
+                    Text('Order Successful!',
+                          style: TextStyle(fontSize: 36,
+                                            fontWeight: FontWeight.w500),),
+                    Text('', style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.05),),
+                    Text("Your reservation details will be emailed to you momentarily. We will also be sending you access codes to receive access codes to unlock your door",
+                    style: TextStyle(fontSize: 20,
+                                      fontStyle: FontStyle.italic))
+                  ]
+          ),
         ),
       ),
     );

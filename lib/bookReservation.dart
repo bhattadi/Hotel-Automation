@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
-import 'placeOrder.dart';
+import 'reviewDetails.dart';
 
 class ConfirmBooking extends StatefulWidget {
   @override
   _ConfirmBooking createState() => _ConfirmBooking();
 }
 
+final _firstName = TextEditingController();
+final _lastName = TextEditingController();
+final _emailAddress = TextEditingController();
+final _phoneNumber = TextEditingController();
+final _creditCardNumber = TextEditingController();
+
 class _ConfirmBooking extends State<ConfirmBooking>
 {
   @override
-  
   Widget build(BuildContext context) {
     double spacing = 20;
-    return Scaffold(
+    return MaterialApp(
+    home: Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            icon:Icon(Icons.arrow_back_ios),
+            onPressed: () => Navigator.pop(context, false),
+          ),
         title: Text('Confirm Booking'),
       ),
       body: Column(
@@ -30,6 +40,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
             child: Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('First Name: ',
                           style: TextStyle(fontSize: 20),),   
@@ -37,6 +48,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                       width: MediaQuery.of(context).size.width * 0.5,
                       height: MediaQuery.of(context).size.height * 0.05,
                       child: TextField(
+                        controller: _firstName,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(50, 0, 50, 20),
                           border: OutlineInputBorder(),
@@ -48,6 +60,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                 ),
                 Text('', style: TextStyle(fontSize: spacing),),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Last Name: ',
                           style: TextStyle(fontSize: 20),),   
@@ -55,6 +68,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                       width: MediaQuery.of(context).size.width * 0.5,
                       height: MediaQuery.of(context).size.height * 0.05,
                       child: TextField(
+                        controller: _lastName,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(50, 0, 50, 20),
                           border: OutlineInputBorder(),
@@ -66,6 +80,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                 ),
                 Text('', style: TextStyle(fontSize: spacing),),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Phone Number: ',
                           style: TextStyle(fontSize: 20),),   
@@ -73,6 +88,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                       width: MediaQuery.of(context).size.width * 0.5,
                       height: MediaQuery.of(context).size.height * 0.05,
                       child: TextField(
+                        controller: _phoneNumber,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(22, 0, 20, 20),
                           border: OutlineInputBorder(),
@@ -84,6 +100,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                 ),
                 Text('', style: TextStyle(fontSize: spacing),),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Email Address: ',
                           style: TextStyle(fontSize: 20),),   
@@ -91,6 +108,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                       width: MediaQuery.of(context).size.width * 0.5,
                       height: MediaQuery.of(context).size.height * 0.05,
                       child: TextField(
+                        controller: _emailAddress,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(50, 0, 50, 20),
                           border: OutlineInputBorder(),
@@ -102,6 +120,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                 ),
                 Text('', style: TextStyle(fontSize: spacing),),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Credit Card: ',
                           style: TextStyle(fontSize: 20),),   
@@ -109,6 +128,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                       width: MediaQuery.of(context).size.width * 0.5,
                       height: MediaQuery.of(context).size.height * 0.05,
                       child: TextField(
+                        controller: _creditCardNumber,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(35, 0, 30, 20),
                           border: OutlineInputBorder(),
@@ -131,7 +151,7 @@ class _ConfirmBooking extends State<ConfirmBooking>
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PlaceOrder()),
+                                builder: (context) => ReviewDetails()),
                           );
                         })),
               ]
@@ -139,6 +159,32 @@ class _ConfirmBooking extends State<ConfirmBooking>
           )
         ]
       ),
+    ),
     );
   }
+}
+
+String getFirstName()
+{
+  return _firstName.toString();
+}
+
+String getLastName()
+{
+  return _lastName.toString();
+}
+
+String getPhoneNumber()
+{
+  return _phoneNumber.toString();
+}
+
+String getEmailAddress()
+{
+  return _emailAddress.toString();
+}
+
+String getCreditCard()
+{
+  return _creditCardNumber.toString();
 }
