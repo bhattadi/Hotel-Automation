@@ -1,17 +1,11 @@
-//import 'package:flutter/material.dart';
-//import 'package:some_calendar/some_calendar.dart';
-//import 'package:intl/intl.dart';
-//import 'package:intl/date_symbol_data_local.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
 import 'package:jiffy/jiffy.dart';
 import 'package:some_calendar/some_calendar.dart';
-
 import 'package:day_night_time_picker/day_night_time_picker.dart';
+import 'bookReservation.dart';
 
 class BookingPage extends StatefulWidget {
   @override
@@ -285,8 +279,3 @@ class _BookingPageState extends State<BookingPage> {
   }
 }
 
-class ConfirmBooking extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
