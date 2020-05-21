@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "872933471529",
+    "firebase_url": "https://hotel-automation-a0d50.firebaseio.com",
+    "project_id": "hotel-automation-a0d50",
+    "storage_bucket": "hotel-automation-a0d50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872933471529:android:0d20008098fb103b113338",
+        "android_client_info": {
+          "package_name": "com.example.flutterapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872933471529-1jsflbb3bd48obh6nql8eiged02qtrm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqpYfIiPU7BFZ_lf47VoODSiVl70OZJGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872933471529-1jsflbb3bd48obh6nql8eiged02qtrm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -26,7 +26,6 @@ String formatTimeOfDay(TimeOfDay tod) {
 
 class _BookingPageState extends State<BookingPage> {
   @override
-
   void initState() {
     initializeDateFormatting();
     Intl.systemLocale =
@@ -82,9 +81,7 @@ class _BookingPageState extends State<BookingPage> {
           },
           child: Text(
             label,
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.black),
+            style: TextStyle(fontSize: 18, color: Colors.black),
           ),
         ));
   }
@@ -107,9 +104,7 @@ class _BookingPageState extends State<BookingPage> {
         },
         child: Text(
           label,
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.black),
+          style: TextStyle(fontSize: 18, color: Colors.black),
         ),
       ),
     );
@@ -120,186 +115,190 @@ class _BookingPageState extends State<BookingPage> {
     SizedBox checkIn = _buildCheckInButton("Check-in Time");
     SizedBox checkOut = _buildCheckOutButton("Check-out Time");
     return MaterialApp(
-    home: Scaffold(
-      appBar: AppBar(
-        title: Text("Book Reservation"),
-        leading: IconButton(
-            icon:Icon(Icons.arrow_back_ios),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Book Reservation"),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
             onPressed: () => Navigator.pop(context, false),
           ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
-        child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.42,
-                      height: MediaQuery.of(context).size.height * 0.075,
-                      child: RaisedButton(
-                        color: Colors.lightBlue,
-                        elevation: 10.0,
-                        padding: EdgeInsets.all(10),
-                        child: Text("Select Dates",
-                                    style: TextStyle(fontSize: 18)),
-                        onPressed: () {
-                          _showDialog();
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(
-                          MediaQuery.of(context).size.width * 0.05),
-                      child: Text(
-                        selectedDates.length != 0
-                            ? "From: " +
-                                new DateFormat.yMMMd()
-                                    .format(selectedDates.first) +
-                                '\n' +
-                                '\n' +
-                                "To: " +
-                                new DateFormat.yMMMd()
-                                    .format(selectedDates.last)
-                            : "Please Select Dates",
-                            style: TextStyle(fontSize: 16, 
-                                            fontStyle: FontStyle.italic)
-                      ),
-                    )
-                  ]),
-              Row(
-                children: [
-                  Text(
-                    '',
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * 0.05),
-                  )
-                ],
-              ),
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  checkIn,
-                  Padding(
-                    padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.width * 0.05),
-                    child: Text(formatTimeOfDay(_timeIn), 
-                                style: TextStyle(fontSize: 16,
-                                                  fontStyle: FontStyle.italic)
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    '',
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * 0.05),
-                  )
-                ],
-              ),
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  checkOut,
-                  Padding(
-                      padding: EdgeInsets.all(
-                          MediaQuery.of(context).size.width * 0.05),
-                      child: Text(formatTimeOfDay(_timeOut),
-                                  style: TextStyle(fontSize: 16,
-                                                    fontStyle: FontStyle.italic)
-                    )
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    '',
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * 0.1),
-                  )
-                ],
-              ),
-              Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.45,
-                      child: Text(
-                        "Estimated Cost: ",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
+          child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.42,
+                        height: MediaQuery.of(context).size.height * 0.075,
+                        child: RaisedButton(
+                          color: Colors.lightBlue,
+                          elevation: 10.0,
+                          padding: EdgeInsets.all(10),
+                          child: Text("Select Dates",
+                              style: TextStyle(fontSize: 18)),
+                          onPressed: () {
+                            _showDialog();
+                          },
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05, 0,
-                                                   MediaQuery.of(context).size.width * 0.05, 0),
-                      child: Text(
-                      "\$" +
-                          (baseRate * selectedDates.length).toStringAsFixed(2),
+                      Padding(
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.width * 0.05),
+                        child: Text(
+                            selectedDates.length != 0
+                                ? "From: " +
+                                    new DateFormat.yMMMd()
+                                        .format(selectedDates.first) +
+                                    '\n' +
+                                    '\n' +
+                                    "To: " +
+                                    new DateFormat.yMMMd()
+                                        .format(selectedDates.last)
+                                : "Please Select Dates",
+                            style: TextStyle(
+                                fontSize: 16, fontStyle: FontStyle.italic)),
+                      )
+                    ]),
+                Row(
+                  children: [
+                    Text(
+                      '',
                       style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
+                          fontSize: MediaQuery.of(context).size.height * 0.05),
+                    )
+                  ],
+                ),
+                Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    checkIn,
+                    Padding(
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.width * 0.05),
+                      child: Text(formatTimeOfDay(_timeIn),
+                          style: TextStyle(
+                              fontSize: 16, fontStyle: FontStyle.italic)),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      '',
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.05),
+                    )
+                  ],
+                ),
+                Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    checkOut,
+                    Padding(
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.width * 0.05),
+                        child: Text(formatTimeOfDay(_timeOut),
+                            style: TextStyle(
+                                fontSize: 16, fontStyle: FontStyle.italic)))
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      '',
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.1),
+                    )
+                  ],
+                ),
+                Row(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        child: Text(
+                          "Estimated Cost: ",
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                    ),
-                  ]),
-              Row(
-                children: [
-                  Text('', style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.05),
-                  )
-                ],
-              ),
-              Center(
-                child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    height: MediaQuery.of(context).size.height * 0.075,
-                    child: RaisedButton(
-                        color: Colors.lightBlue,
-                        elevation: 10.0,
-                        child: Text("Confirm Booking",
-                                    style: TextStyle(fontSize: 24)),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ConfirmBooking()),
-                          );
-                        })),
-              ),
-            ]),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            MediaQuery.of(context).size.width * 0.05,
+                            0,
+                            MediaQuery.of(context).size.width * 0.05,
+                            0),
+                        child: Text(
+                          "\$" +
+                              (baseRate * selectedDates.length)
+                                  .toStringAsFixed(2),
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ),
+                    ]),
+                Row(
+                  children: [
+                    Text(
+                      '',
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.05),
+                    )
+                  ],
+                ),
+                Center(
+                  child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: MediaQuery.of(context).size.height * 0.075,
+                      child: RaisedButton(
+                          color: Colors.lightBlue,
+                          elevation: 10.0,
+                          child: Text("Confirm Booking",
+                              style: TextStyle(fontSize: 24)),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ConfirmBooking()),
+                            );
+                          })),
+                ),
+              ]),
+        ),
       ),
-    ),
     );
   }
 }
 
 //Function to get the Selected Date Range in a different file
-String getDateRange()
-{
-  return selectedDates.length != 0 ? "From: " + 
-  new DateFormat.yMMMd().format(selectedDates.first) +
-  '\n' + '\n' + "To: " + new DateFormat.yMMMd().format(selectedDates.last)
-  : "Please Select Dates";
+String getDateRange() {
+  return selectedDates.length != 0
+      ? "From: " +
+          new DateFormat.yMMMd().format(selectedDates.first) +
+          '\n' +
+          '\n' +
+          "To: " +
+          new DateFormat.yMMMd().format(selectedDates.last)
+      : "Please Select Dates";
 }
 
 //Function to get the Check In Time in a different file
-String getCheckInTime()
-{
+String getCheckInTime() {
   return formatTimeOfDay(_timeIn);
 }
 
 //Function to get the Check Out Time in a different file
-String getCheckOutTime()
-{
+String getCheckOutTime() {
   return formatTimeOfDay(_timeOut);
 }

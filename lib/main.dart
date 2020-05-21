@@ -1,7 +1,20 @@
 // The driver for the project
 
 import 'package:flutter/material.dart';
-import 'login.dart';
+import 'package:flutterapp/authentication.dart';
+import 'package:flutterapp/root_page.dart';
 
 void main() => runApp(HotelAutomation());
 
+class HotelAutomation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+        title: 'Hotel Automation',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: new RootPage(auth: new Auth()));
+  }
+}

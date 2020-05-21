@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'reviewDetails.dart';
 
-class ConfirmBooking extends StatefulWidget {
+class AccountPage extends StatefulWidget {
   @override
-  _ConfirmBooking createState() => _ConfirmBooking();
+  _AccountPage createState() => _AccountPage();
 }
 
 //Declared Controller Variables that will hold values
@@ -18,7 +18,7 @@ final _creditCardNumber = TextEditingController();
 //Where the user is prompted to enter information in
 //empty textboxes where information is layed in a row
 //with the text on the left and textfield on the right
-class _ConfirmBooking extends State<ConfirmBooking> {
+class _AccountPage extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     double spacing = 20;
@@ -38,7 +38,7 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                     EdgeInsets.all(MediaQuery.of(context).size.height * 0.05),
                 child: Center(
                     child: Text(
-                  'Contact Information',
+                  'Account Information',
                   style: TextStyle(fontSize: 32),
                 ))),
             Padding(
@@ -169,21 +169,6 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                     '',
                     style: TextStyle(fontSize: 36),
                   ),
-                  SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      height: MediaQuery.of(context).size.height * 0.075,
-                      child: RaisedButton(
-                          color: Colors.lightBlue,
-                          elevation: 10.0,
-                          child: Text("Place Order",
-                              style: TextStyle(fontSize: 24)),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ReviewDetails()),
-                            );
-                          })),
                 ]))
           ]),
         ),
