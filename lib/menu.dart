@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutterapp/authentication.dart';
 import 'booking.dart';
-import 'account.dart';
+import 'accountPage.dart';
 import 'editReservation.dart';
 import 'settings.dart';
 import 'dart:async';
