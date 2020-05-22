@@ -55,18 +55,18 @@ class _AccountPage extends State<AccountPage> {
   }
 
   addAccountInfo(Account account) {    
-      _database.reference().child("account").push().set(account.toJson());
+      _database.reference().child("account").child(widget.userId).set(account.toJson());
   }
 
-  updateAccountInfo(Account account) {
-    account.firstName = _firstName.text.toString();
-    account.lastName = _lastName.text.toString();
-    account.email = _emailAddress.text.toString();
-    account.phoneNumber = _phoneNumber.text.toString();
-    account.creditCardInfo = _creditCardNumber.text.toString();
+  updateAccountInfo(String firstName, String lastName, String email, String phoneNum, String creditCard) {
+    _account.firstName = firstName;
+    _account.lastName = lastName;
+    _account.email = email;
+    _account.phoneNumber = phoneNum;
+    _account.creditCardInfo = creditCard;
 
-    if(account != null) {
-      _database.reference().child("account").child(account.key).set(account.toJson());
+    if(_account != null) {
+      _database.reference().child("account").child(widget.userId).update(_account.toJson());
     }
   }
 
@@ -256,7 +256,8 @@ class _AccountPage extends State<AccountPage> {
                           child: Text("Update Account",
                               style: TextStyle(fontSize: 24)),
                           onPressed: () {
-                              updateAccountInfo(_account);
+                              updateAccountInfo(_firstName.text.toString(), _lastName.text.toString(), 
+                                                _emailAddress.text.toString(), _phoneNumber.text.toString(), _creditCardNumber.text.toString());
                         }
                       )
                     ),
