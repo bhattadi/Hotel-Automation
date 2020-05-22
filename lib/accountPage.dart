@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
-import 'reviewDetails.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutterapp/authentication.dart';
+import 'account.dart';
+import 'dart:async';
 
 class AccountPage extends StatefulWidget {
+  AccountPage({Key key, this.auth, this.userId, this.logoutCallback})
+    : super(key: key);
+
+  final BaseAuth auth;
+  final VoidCallback logoutCallback;
+  final String userId;
+
   @override
   _AccountPage createState() => _AccountPage();
 }
@@ -19,7 +29,56 @@ final _creditCardNumber = TextEditingController();
 //empty textboxes where information is layed in a row
 //with the text on the left and textfield on the right
 class _AccountPage extends State<AccountPage> {
+  Account _account;
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  StreamSubscription<Event> _onAccountChangedSubscription;
+  Query _accountQuery;
+
   @override
+  void initState(){
+    super.initState();
+    _accountQuery = _database.reference().child("account").orderByChild("userId").equalTo(widget.userId);
+    _onAccountChangedSubscription = _accountQuery.onChildChanged.listen(onEntryChanged);
+  }
+
+  @override
+  void dispose() {
+    _onAccountChangedSubscription.cancel();
+    super.dispose();
+  }
+
+  onEntryChanged(Event event) {
+    setState(() {
+      _account = Account.fromSnapshot(event.snapshot);
+    });
+  }
+
+  addAccountInfo(Account account) {    
+      _database.reference().child("account").push().set(account.toJson());
+  }
+
+  updateAccountInfo(Account account) {
+    account.firstName = _firstName.text.toString();
+    account.lastName = _lastName.text.toString();
+    account.email = _emailAddress.text.toString();
+    account.phoneNumber = _phoneNumber.text.toString();
+    account.creditCardInfo = _creditCardNumber.text.toString();
+
+    if(account != null) {
+      _database.reference().child("account").child(account.key).set(account.toJson());
+    }
+  }
+
+  signOut() async {
+    try {
+      await widget.auth.signOut();
+      widget.logoutCallback();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Widget build(BuildContext context) {
     double spacing = 20;
     return MaterialApp(
@@ -169,8 +228,60 @@ class _AccountPage extends State<AccountPage> {
                     '',
                     style: TextStyle(fontSize: 36),
                   ),
-                ]))
-          ]),
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: MediaQuery.of(context).size.height * 0.075,
+                      child: RaisedButton(
+                          color: Colors.lightBlue,
+                          elevation: 10.0,
+                          child: Text("Create Account",
+                              style: TextStyle(fontSize: 24)),
+                          onPressed: () {
+                              _account = Account(widget.userId, _firstName.text.toString(), _lastName.text.toString(), 
+                                                    _emailAddress.text.toString(), _phoneNumber.text.toString(), _creditCardNumber.text.toString());
+                              addAccountInfo(_account);
+                        }
+                      )
+                    ),
+                  Text(
+                    '',
+                    style: TextStyle(fontSize: 36),
+                  ),
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: MediaQuery.of(context).size.height * 0.075,
+                      child: RaisedButton(
+                          color: Colors.lightBlue,
+                          elevation: 10.0,
+                          child: Text("Update Account",
+                              style: TextStyle(fontSize: 24)),
+                          onPressed: () {
+                              updateAccountInfo(_account);
+                        }
+                      )
+                    ),
+                    Text(
+                    '',
+                    style: TextStyle(fontSize: 36),
+                  ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: MediaQuery.of(context).size.height * 0.075,
+                      child: RaisedButton(
+                          color: Colors.lightBlue,
+                          elevation: 10.0,
+                          child: Text("Sign Out",
+                              style: TextStyle(fontSize: 24)),
+                          onPressed: () {
+                            signOut();
+                        }
+                      )
+                    ),
+                 ]
+               )
+             )
+            ]
+          ),
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/login.dart';
 import 'package:flutterapp/authentication.dart';
+import 'package:flutterapp/accountPage.dart';
 import 'package:flutterapp/menu.dart';
 
 enum AuthStatus {
@@ -77,7 +78,7 @@ class _RootPageState extends State<RootPage> {
         break;
       case AuthStatus.LOGGED_IN:
         if (_userId.length > 0 && _userId != null) {
-          return new Menu(
+          return new AccountPage(
             userId: _userId,
             auth: widget.auth,
             logoutCallback: logoutCallback,

@@ -1,24 +1,14 @@
 //The Menu Page after the user has logged in
 
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutterapp/authentication.dart';
 import 'booking.dart';
 import 'accountPage.dart';
 import 'editReservation.dart';
 import 'settings.dart';
-import 'dart:async';
 
 //The NextScreen class defines how to open
 //new pages given a chosen menu item
 class Menu extends StatefulWidget {
-  Menu({Key key, this.auth, this.userId, this.logoutCallback})
-      : super(key: key);
-
-  final BaseAuth auth;
-  final VoidCallback logoutCallback;
-  final String userId;
-
   @override
   State<StatefulWidget> createState() => new _Menu();
 }
