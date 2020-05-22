@@ -58,21 +58,22 @@ class _AccountPage extends State<AccountPage> {
       _database.reference().child("account").child(widget.userId).set(account.toJson());
   }
 
-  updateAccountInfo(String firstName, String lastName, String email, String phoneNum, String creditCard) {
-    _account.firstName = firstName;
-    _account.lastName = lastName;
-    _account.email = email;
-    _account.phoneNumber = phoneNum;
-    _account.creditCardInfo = creditCard;
-
-    if(_account != null) {
-      _database.reference().child("account").child(widget.userId).update(_account.toJson());
-    }
-  }
+//  updateAccountInfo(String firstName, String lastName, String email, String phoneNum, String creditCard) {
+//    _account.firstName = firstName;
+//    _account.lastName = lastName;
+//    _account.email = email;
+//    _account.phoneNumber = phoneNum;
+//    _account.creditCardInfo = creditCard;
+//
+//    if(_account != null) {
+//      _database.reference().child("account").child(widget.userId).update(_account.toJson());
+//    }
+//  }
 
   signOut() async {
     try {
       await widget.auth.signOut();
+      Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
       widget.logoutCallback();
     } catch (e) {
       print(e);
@@ -234,7 +235,7 @@ class _AccountPage extends State<AccountPage> {
                       child: RaisedButton(
                           color: Colors.lightBlue,
                           elevation: 10.0,
-                          child: Text("Create Account",
+                          child: Text("Update Account",
                               style: TextStyle(fontSize: 24)),
                           onPressed: () {
                               _account = Account(widget.userId, _firstName.text.toString(), _lastName.text.toString(), 
@@ -244,24 +245,6 @@ class _AccountPage extends State<AccountPage> {
                       )
                     ),
                   Text(
-                    '',
-                    style: TextStyle(fontSize: 36),
-                  ),
-                  SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      height: MediaQuery.of(context).size.height * 0.075,
-                      child: RaisedButton(
-                          color: Colors.lightBlue,
-                          elevation: 10.0,
-                          child: Text("Update Account",
-                              style: TextStyle(fontSize: 24)),
-                          onPressed: () {
-                              updateAccountInfo(_firstName.text.toString(), _lastName.text.toString(), 
-                                                _emailAddress.text.toString(), _phoneNumber.text.toString(), _creditCardNumber.text.toString());
-                        }
-                      )
-                    ),
-                    Text(
                     '',
                     style: TextStyle(fontSize: 36),
                   ),

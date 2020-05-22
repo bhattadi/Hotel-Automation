@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>872933471529-ahbnim9bgsnchimhdcm50fjcutm6ence.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.872933471529-ahbnim9bgsnchimhdcm50fjcutm6ence</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC2U-gInAJk1SkvKGFi0sFQQehgP42C45k</string>
+	<key>GCM_SENDER_ID</key>
+	<string>872933471529</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.flutterapp</string>
+	<key>PROJECT_ID</key>
+	<string>hotel-automation-a0d50</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hotel-automation-a0d50.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:872933471529:ios:21cf0be379fa827c113338</string>
+	<key>DATABASE_URL</key>
+	<string>https://hotel-automation-a0d50.firebaseio.com</string>
+</dict>
+</plist>

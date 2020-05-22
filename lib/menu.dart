@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'booking.dart';
+import 'package:flutterapp/authentication.dart';
 import 'accountPage.dart';
 import 'editReservation.dart';
 import 'settings.dart';
@@ -9,6 +10,14 @@ import 'settings.dart';
 //The NextScreen class defines how to open
 //new pages given a chosen menu item
 class Menu extends StatefulWidget {
+  Menu({Key key, this.auth, this.userId, this.logoutCallback, this.loginCallback})
+      : super(key: key);
+
+  final BaseAuth auth;
+  final VoidCallback logoutCallback;
+  final VoidCallback loginCallback;
+  final String userId;
+
   @override
   State<StatefulWidget> createState() => new _Menu();
 }
@@ -101,16 +110,12 @@ class _Menu extends State<Menu> {
             IconButton(
               icon: Icon(Icons.account_circle),
               onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AccountPage()),
+                MaterialPageRoute(builder: (context) => AccountPage(userId: widget.userId, auth: widget.auth, logoutCallback: widget.logoutCallback)),
               ),
             )
           ],
           automaticallyImplyLeading: true,
           title: Text(title),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            onPressed: () => Navigator.pop(context, false),
-          ),
         ),
         body: Container(
           child: Column(
