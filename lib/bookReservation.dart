@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'reviewDetails.dart';
+import 'package:firebase_database/firebase_database.dart';
+
 
 class ConfirmBooking extends StatefulWidget {
+
+  ConfirmBooking({Key key, this.userId})
+      : super(key: key);
+  final String userId;
   @override
   _ConfirmBooking createState() => _ConfirmBooking();
 }
@@ -19,8 +25,24 @@ final _creditCardNumber = TextEditingController();
 //empty textboxes where information is layed in a row
 //with the text on the left and textfield on the right
 class _ConfirmBooking extends State<ConfirmBooking> {
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
+
+
   @override
   Widget build(BuildContext context) {
+
+
+    void fillInPage() async {
+      _emailAddress.text = (await _database.reference().child("account").child(widget.userId).child("email").once()).value;
+      _firstName.text = (await _database.reference().child("account").child(widget.userId).child("firstName").once()).value;
+      _lastName.text = (await _database.reference().child("account").child(widget.userId).child("lastName").once()).value;
+      _creditCardNumber.text = (await _database.reference().child("account").child(widget.userId).child("creditCardInfo").once()).value;
+      _phoneNumber.text = (await _database.reference().child("account").child(widget.userId).child("phoneNumber").once()).value;
+    }
+
+    fillInPage();
+
+
     double spacing = 20;
     return MaterialApp(
       home: Scaffold(
@@ -181,7 +203,7 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ReviewDetails()),
+                                  builder: (context) => ReviewDetails(userId: widget.userId)),
                             );
                           })),
                 ]))

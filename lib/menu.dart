@@ -32,7 +32,7 @@ class _Menu extends State<Menu> {
       if (lab == "Book") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => BookingPage()),
+          MaterialPageRoute(builder: (context) => BookingPage(userId: widget.userId)),
         );
       }
 
@@ -109,6 +109,7 @@ class _Menu extends State<Menu> {
           actions: [
             IconButton(
               icon: Icon(Icons.account_circle),
+              iconSize: 30,
               onPressed: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => AccountPage(userId: widget.userId, auth: widget.auth, logoutCallback: widget.logoutCallback)),
               ),

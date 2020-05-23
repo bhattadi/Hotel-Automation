@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'bookReservation.dart';
 import 'placeOrder.dart';
 import 'booking.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class ReviewDetails extends StatefulWidget {
+
+  ReviewDetails({Key key, this.userId})
+      : super(key: key);
+
+  final String userId;
+
+
   @override
   _ReviewDetails createState() => _ReviewDetails();
 }
@@ -16,6 +24,10 @@ class ReviewDetails extends StatefulWidget {
 //Widgets follow a row format
 //For example each row looks like "Name: Joe Smith"
 class _ReviewDetails extends State<ReviewDetails> {
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
+
+  @override
+
   Widget build(BuildContext context) {
     double spacing = 56;
     return MaterialApp(

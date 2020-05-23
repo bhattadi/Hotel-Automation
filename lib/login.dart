@@ -95,8 +95,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           padding: EdgeInsets.fromLTRB(0, 70, 0, 0),
           child: CircleAvatar(
             backgroundColor: Colors.transparent,
-            radius: 48,
-//            child: Image.asset('img/logo.jpg'),
+            radius: 100,
+            child: Image.asset('assets/bellhop_img.png'),
           )),
     );
   }
@@ -223,7 +223,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text("Flutter login demo"),
+          title: new Text("Hotel Check-In"),
         ),
         body: Stack(
           children: <Widget>[

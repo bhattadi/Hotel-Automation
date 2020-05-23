@@ -8,6 +8,11 @@ import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'bookReservation.dart';
 
 class BookingPage extends StatefulWidget {
+
+  BookingPage({Key key, this.userId})
+      : super(key: key);
+  final String userId;
+
   @override
   _BookingPageState createState() => _BookingPageState();
 }
@@ -270,7 +275,7 @@ class _BookingPageState extends State<BookingPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ConfirmBooking()),
+                                  builder: (context) => ConfirmBooking(userId: widget.userId)),
                             );
                           })),
                 ),
