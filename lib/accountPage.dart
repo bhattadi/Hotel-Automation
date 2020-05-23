@@ -54,8 +54,10 @@ class _AccountPage extends State<AccountPage> {
     });
   }
 
-  addAccountInfo(Account account) {    
+  addAccountInfo(Account account) {
       _database.reference().child("account").child(widget.userId).set(account.toJson());
+      //print(_database.reference().child("account").child(widget.userId).toString());
+      //String emailVal = _database.reference().child("account").child(widget.userId).child("email").toString();
   }
 
 //  updateAccountInfo(String firstName, String lastName, String email, String phoneNum, String creditCard) {
@@ -80,7 +82,28 @@ class _AccountPage extends State<AccountPage> {
     }
   }
 
+
+
+
+
+
+
+
+
+
+
   Widget build(BuildContext context) {
+
+  void fillInPage() async {
+    _emailAddress.text = (await _database.reference().child("account").child(widget.userId).child("email").once()).value;
+    _firstName.text = (await _database.reference().child("account").child(widget.userId).child("firstName").once()).value;
+    _lastName.text = (await _database.reference().child("account").child(widget.userId).child("lastName").once()).value;
+    _creditCardNumber.text = (await _database.reference().child("account").child(widget.userId).child("creditCardInfo").once()).value;
+    _phoneNumber.text = (await _database.reference().child("account").child(widget.userId).child("phoneNumber").once()).value;
+  }
+
+  fillInPage();
+
     double spacing = 20;
     return MaterialApp(
       home: Scaffold(
@@ -238,7 +261,7 @@ class _AccountPage extends State<AccountPage> {
                           child: Text("Update Account",
                               style: TextStyle(fontSize: 24)),
                           onPressed: () {
-                              _account = Account(widget.userId, _firstName.text.toString(), _lastName.text.toString(), 
+                              _account = Account(widget.userId, _firstName.text.toString(), _lastName.text.toString(),
                                                     _emailAddress.text.toString(), _phoneNumber.text.toString(), _creditCardNumber.text.toString());
                               addAccountInfo(_account);
                         }

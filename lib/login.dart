@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutterapp/authentication.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutterapp/account.dart';
 
 class LoginSignupPage extends StatefulWidget {
   LoginSignupPage({this.auth, this.loginCallback});
@@ -17,6 +19,7 @@ class LoginSignupPage extends StatefulWidget {
 class _LoginSignupPageState extends State<LoginSignupPage> {
   @override
   final _formKey = new GlobalKey<FormState>();
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
 
   String _email;
   String _password;
@@ -55,7 +58,12 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           _isLoading = false;
         });
 
-        if (userId.length > 0 && userId != null && _isLoginForm) {
+        if (userId.length > 0 && userId != null) {
+          if(!_isLoginForm) {
+            Account account = new Account(userId, "", "", _email, "", "");
+//          account.email = "This is a test";
+            _database.reference().child("account").child(userId).set(account.toJson());
+          }
           widget.loginCallback();
         }
       } catch (e) {
@@ -88,7 +96,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           child: CircleAvatar(
             backgroundColor: Colors.transparent,
             radius: 48,
-            child: Image.asset('img/logo.jpg'),
+//            child: Image.asset('img/logo.jpg'),
           )),
     );
   }
