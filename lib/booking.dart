@@ -19,6 +19,7 @@ class BookingPage extends StatefulWidget {
 }
 
 List<DateTime> selectedDates = List();
+List<int> availRooms = List<int>();
 TimeOfDay _timeIn = TimeOfDay.now();
 TimeOfDay _timeOut = TimeOfDay.now();
 double baseRate = 60.0;
@@ -118,45 +119,23 @@ class _BookingPageState extends State<BookingPage> {
 
   Widget build(BuildContext context) {
     @override
-    List<Room> masterListOfRooms = List(5);
-//    final databaseReference = Firestore.instance;
-
-    // ---------------------------------------------------------------------------------------------------------
-
-//
-
-//      mapOfMaps.forEach((key, value) {
-//        print(Map.from(value));
-//      });
-
-//        print(dates.value);
-//      }
-//      //}
-////      print(dates);
+    List<Room> masterListOfRooms = List<Room>(5);
 
     final FirebaseDatabase _database = FirebaseDatabase.instance;
 
-    void daysAndRoomsBookedByUser(List<Room> rooms) {
+    void daysAndRoomsBookedByUser(List<Room> rooms) {}
 
-    }
-
-
-    List<Room> roomsUserCanUse(List< List<dynamic> > roomsUsed) {
-      List<Room> usableRooms;
-      for(int i = 0; i < roomsUsed.length; ++i) {
-         for(int j = 0; j < roomsUsed[i].length; ++j) {
-           if(roomsUsed[i][j]["isAvailable"] == true) {
-             int index = masterListOfRooms.indexOf(roomsUsed[i][j]["roomNum"]);
-             usableRooms.add(masterListOfRooms[index]);
-           }
-         }
+    void setUpRooms() {
+      for (int i = 0; i < masterListOfRooms.length; ++i) {
+        masterListOfRooms[i] = Room(true, 2, 2, i + 1);
       }
-      return usableRooms;
     }
-//
-    void roomsPerDayInDatabase() async {
-      var roomsInDatabase;
-      List< List<dynamic> > allRooms;
+
+    Future<List<Room>> openRooms() async {
+      setUpRooms();
+      DataSnapshot roomsInDatabase;
+      List<Room> usableRooms = masterListOfRooms;
+      //print("MasterList Rooms: $masterListOfRooms");
       for (int i = 0; i < selectedDates.length; ++i) {
         var dayOfYear = DateFormat("D").format(selectedDates[i]);
         roomsInDatabase = await _database
@@ -168,20 +147,36 @@ class _BookingPageState extends State<BookingPage> {
             .once();
 
         List<dynamic> rooms = roomsInDatabase.value;
-//        (await allRooms).add(rooms);
+//        print("Rooms: $rooms");
 
-        print(rooms);
+        for (int j = 0; j < rooms.length; ++j) {
+          if (rooms[j]["isAvailable"] == false) {
+            int index = masterListOfRooms.indexOf(rooms[j]["roomNum"]);
+            usableRooms.remove(masterListOfRooms[index]);
+          }
+        }
+
 //     print(rooms[0]["isAvailable"]);
       }
+//      print(usableRooms);
+
+      return usableRooms;
     }
 
     // ---------------------------------------------------------------------------------------------------------
 
-//    void setUpRooms() {
-//      for(int i = 0; i < masterListOfRooms.length; ++i) {
-//        masterListOfRooms[i].roomNum = i + 1;
+//
+    //    final databaseReference = Firestore.instance;
+
+//      mapOfMaps.forEach((key, value) {
+//        print(Map.from(value));
+//      });
+
+//        print(dates.value);
 //      }
-//    }
+//      //}
+////      print(dates);
+    // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 //
 //    void addRoomsIntoCloudFireStore() async {
 //
@@ -308,6 +303,54 @@ class _BookingPageState extends State<BookingPage> {
 
     //   }
 
+    Dialog showRooms() {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0)), //this right here
+        child: Container(
+          height: 300.0,
+          width: 300.0,
+          child: SizedBox(
+            child: new FutureBuilder(
+                future: openRooms(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<List<Room>> snapshot) {
+                  if (!snapshot.hasData) {
+                    return new Container();
+                  }
+                  List<Room> content = snapshot.data;
+                  return new ListView.builder(
+                    itemCount: content.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return new ListTile(
+                        title: Text(
+                            "Room: " + (content[index].roomNum).toString()),
+                        trailing: Icon(
+                          availRooms.contains(content[index].roomNum)
+                              ? Icons.check
+                              : Icons.add_circle_outline,
+                          color: availRooms.contains(content[index].roomNum)
+                              ? Colors.green
+                              : null,
+                        ),
+                        onTap: () {
+                          setState(() {
+                            if (availRooms.contains(content[index].roomNum)) {
+                              availRooms.remove(content[index].roomNum);
+                            } else {
+                              availRooms.add(content[index].roomNum);
+                            }
+                          });
+                        },
+                      );
+                    },
+                  );
+                }),
+          ),
+        ),
+      );
+    }
+
     SizedBox checkIn = _buildCheckInButton("Check-in Time");
     SizedBox checkOut = _buildCheckOutButton("Check-out Time");
     return MaterialApp(
@@ -413,6 +456,31 @@ class _BookingPageState extends State<BookingPage> {
                     )
                   ],
                 ),
+                Center(
+                  child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: MediaQuery.of(context).size.height * 0.075,
+                      child: RaisedButton(
+                          color: Colors.lightBlue,
+                          elevation: 10.0,
+                          child: Text("Choose Rooms",
+                              style: TextStyle(fontSize: 24)),
+                          onPressed: () {
+                            openRooms();
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) => showRooms());
+                          })),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      '',
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.05),
+                    )
+                  ],
+                ),
                 Row(
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -463,7 +531,6 @@ class _BookingPageState extends State<BookingPage> {
                           child: Text("Confirm Booking",
                               style: TextStyle(fontSize: 24)),
                           onPressed: () {
-                            roomsPerDayInDatabase();
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -489,6 +556,10 @@ String getDateRange() {
           "To: " +
           new DateFormat.yMMMd().format(selectedDates.last)
       : "Please Select Dates";
+}
+
+List<DateTime> dates() {
+  return selectedDates;
 }
 
 //Function to get the Check In Time in a different file

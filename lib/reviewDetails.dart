@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'bookReservation.dart';
-import 'placeOrder.dart';
-import 'booking.dart';
+import 'package:flutterapp/bookReservation.dart';
+import 'package:flutterapp/placeOrder.dart';
+import 'package:flutterapp/booking.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class ReviewDetails extends StatefulWidget {
@@ -29,6 +29,15 @@ class _ReviewDetails extends State<ReviewDetails> {
   @override
 
   Widget build(BuildContext context) {
+
+    List<DateTime> selectedDates = dates();
+
+    void bookRoom() {
+
+
+    }
+
+
     double spacing = 56;
     return MaterialApp(
         home: Scaffold(
