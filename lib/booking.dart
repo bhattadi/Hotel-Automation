@@ -19,7 +19,7 @@ class BookingPage extends StatefulWidget {
 }
 
 List<DateTime> selectedDates = List();
-List<int> availRooms = List<int>();
+List<int> chosenRooms = List<int>();
 TimeOfDay _timeIn = TimeOfDay.now();
 TimeOfDay _timeOut = TimeOfDay.now();
 double baseRate = 60.0;
@@ -127,7 +127,7 @@ class _BookingPageState extends State<BookingPage> {
 
     void setUpRooms() {
       for (int i = 0; i < masterListOfRooms.length; ++i) {
-        masterListOfRooms[i] = Room(true, 2, 2, i + 1);
+        masterListOfRooms[i] = Room(true, "12:00 AM", "12:00 AM", i + 1);
       }
     }
 
@@ -328,20 +328,20 @@ class _BookingPageState extends State<BookingPage> {
                             title: Text(
                                 "Room: " + (content[index].roomNum).toString()),
                             trailing: Icon(
-                              availRooms.contains(content[index].roomNum)
+                              chosenRooms.contains(content[index].roomNum)
                                   ? Icons.check
                                   : Icons.add_circle_outline,
-                              color: availRooms.contains(content[index].roomNum)
+                              color: chosenRooms.contains(content[index].roomNum)
                                   ? Colors.green
                                   : null,
                             ),
                             onTap: () {
                               setState(() {
-                                if (availRooms
+                                if (chosenRooms
                                     .contains(content[index].roomNum)) {
-                                  availRooms.remove(content[index].roomNum);
+                                  chosenRooms.remove(content[index].roomNum);
                                 } else {
-                                  availRooms.add(content[index].roomNum);
+                                  chosenRooms.add(content[index].roomNum);
                                 }
                               });
                             },
@@ -565,6 +565,10 @@ String getDateRange() {
 
 List<DateTime> dates() {
   return selectedDates;
+}
+
+List<int> chosen() {
+  return chosenRooms;
 }
 
 //Function to get the Check In Time in a different file

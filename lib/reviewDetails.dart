@@ -3,14 +3,13 @@ import 'package:flutterapp/bookReservation.dart';
 import 'package:flutterapp/placeOrder.dart';
 import 'package:flutterapp/booking.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutterapp/room.dart';
+import 'package:intl/intl.dart';
 
 class ReviewDetails extends StatefulWidget {
-
-  ReviewDetails({Key key, this.userId})
-      : super(key: key);
+  ReviewDetails({Key key, this.userId}) : super(key: key);
 
   final String userId;
-
 
   @override
   _ReviewDetails createState() => _ReviewDetails();
@@ -27,16 +26,25 @@ class _ReviewDetails extends State<ReviewDetails> {
   final FirebaseDatabase _database = FirebaseDatabase.instance;
 
   @override
-
   Widget build(BuildContext context) {
-
     List<DateTime> selectedDates = dates();
-
+    List<int> chosenRooms = chosen();
     void bookRoom() {
-
-
+      for (int i = 0; i < selectedDates.length; ++i) {
+        var dayOfYear = DateFormat("D").format(selectedDates[i]);
+        for (int j = 0; j < chosenRooms.length; ++j) {
+          Room temp = Room(false, getCheckInTime(), getCheckOutTime(), chosenRooms[j]);
+          _database
+              .reference()
+              .child("calendar")
+              .child("Days")
+              .child(dayOfYear)
+              .child("Room Numbers")
+              .child(chosenRooms[j].toString())
+              .update(temp.toJson());
+        }
+      }
     }
-
 
     double spacing = 56;
     return MaterialApp(
@@ -192,6 +200,7 @@ class _ReviewDetails extends State<ReviewDetails> {
                                 child: Text("Confirm Order",
                                     style: TextStyle(fontSize: 24)),
                                 onPressed: () {
+                                  bookRoom();
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
