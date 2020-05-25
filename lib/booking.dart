@@ -119,7 +119,7 @@ class _BookingPageState extends State<BookingPage> {
 
   Widget build(BuildContext context) {
     @override
-    List<Room> masterListOfRooms = List<Room>(5);
+    List<Room> masterListOfRooms = List<Room>(20);
 
     final FirebaseDatabase _database = FirebaseDatabase.instance;
 
@@ -303,52 +303,57 @@ class _BookingPageState extends State<BookingPage> {
 
     //   }
 
-    Dialog showRooms() {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0)), //this right here
-        child: Container(
-          height: 300.0,
-          width: 300.0,
-          child: SizedBox(
-            child: new FutureBuilder(
-                future: openRooms(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<List<Room>> snapshot) {
-                  if (!snapshot.hasData) {
-                    return new Container();
-                  }
-                  List<Room> content = snapshot.data;
-                  return new ListView.builder(
-                    itemCount: content.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return new ListTile(
-                        title: Text(
-                            "Room: " + (content[index].roomNum).toString()),
-                        trailing: Icon(
-                          availRooms.contains(content[index].roomNum)
-                              ? Icons.check
-                              : Icons.add_circle_outline,
-                          color: availRooms.contains(content[index].roomNum)
-                              ? Colors.green
-                              : null,
-                        ),
-                        onTap: () {
-                          setState(() {
-                            if (availRooms.contains(content[index].roomNum)) {
-                              availRooms.remove(content[index].roomNum);
-                            } else {
-                              availRooms.add(content[index].roomNum);
-                            }
-                          });
+    showRooms() {
+      return StatefulBuilder(builder: (context, setState) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0)), //this right here
+          actions: <Widget>[
+            Container(
+              height: 300.0,
+              width: 300.0,
+              child: SizedBox(
+                child: new FutureBuilder(
+                    future: openRooms(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<Room>> snapshot) {
+                      if (!snapshot.hasData) {
+                        return new Container();
+                      }
+                      List<Room> content = snapshot.data;
+                      return new ListView.builder(
+                        itemCount: content.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return new ListTile(
+                            title: Text(
+                                "Room: " + (content[index].roomNum).toString()),
+                            trailing: Icon(
+                              availRooms.contains(content[index].roomNum)
+                                  ? Icons.check
+                                  : Icons.add_circle_outline,
+                              color: availRooms.contains(content[index].roomNum)
+                                  ? Colors.green
+                                  : null,
+                            ),
+                            onTap: () {
+                              setState(() {
+                                if (availRooms
+                                    .contains(content[index].roomNum)) {
+                                  availRooms.remove(content[index].roomNum);
+                                } else {
+                                  availRooms.add(content[index].roomNum);
+                                }
+                              });
+                            },
+                          );
                         },
                       );
-                    },
-                  );
-                }),
-          ),
-        ),
-      );
+                    }),
+              ),
+            )
+          ],
+        );
+      });
     }
 
     SizedBox checkIn = _buildCheckInButton("Check-in Time");
