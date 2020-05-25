@@ -6,11 +6,12 @@ import 'package:jiffy/jiffy.dart';
 import 'package:some_calendar/some_calendar.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'bookReservation.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutterapp/room.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BookingPage extends StatefulWidget {
-
-  BookingPage({Key key, this.userId})
-      : super(key: key);
+  BookingPage({Key key, this.userId}) : super(key: key);
   final String userId;
 
   @override
@@ -117,6 +118,196 @@ class _BookingPageState extends State<BookingPage> {
 
   Widget build(BuildContext context) {
     @override
+    List<Room> masterListOfRooms = List(5);
+//    final databaseReference = Firestore.instance;
+
+    // ---------------------------------------------------------------------------------------------------------
+
+//
+
+//      mapOfMaps.forEach((key, value) {
+//        print(Map.from(value));
+//      });
+
+//        print(dates.value);
+//      }
+//      //}
+////      print(dates);
+
+    final FirebaseDatabase _database = FirebaseDatabase.instance;
+
+    void daysAndRoomsBookedByUser(List<Room> rooms) {
+
+    }
+
+
+    List<Room> roomsUserCanUse(List< List<dynamic> > roomsUsed) {
+      List<Room> usableRooms;
+      for(int i = 0; i < roomsUsed.length; ++i) {
+         for(int j = 0; j < roomsUsed[i].length; ++j) {
+           if(roomsUsed[i][j]["isAvailable"] == true) {
+             int index = masterListOfRooms.indexOf(roomsUsed[i][j]["roomNum"]);
+             usableRooms.add(masterListOfRooms[index]);
+           }
+         }
+      }
+      return usableRooms;
+    }
+//
+    void roomsPerDayInDatabase() async {
+      var roomsInDatabase;
+      List< List<dynamic> > allRooms;
+      for (int i = 0; i < selectedDates.length; ++i) {
+        var dayOfYear = DateFormat("D").format(selectedDates[i]);
+        roomsInDatabase = await _database
+            .reference()
+            .child("calendar")
+            .child("Days")
+            .child(dayOfYear.toString())
+            .child("Room Numbers")
+            .once();
+
+        List<dynamic> rooms = roomsInDatabase.value;
+//        (await allRooms).add(rooms);
+
+        print(rooms);
+//     print(rooms[0]["isAvailable"]);
+      }
+    }
+
+    // ---------------------------------------------------------------------------------------------------------
+
+//    void setUpRooms() {
+//      for(int i = 0; i < masterListOfRooms.length; ++i) {
+//        masterListOfRooms[i].roomNum = i + 1;
+//      }
+//    }
+//
+//    void addRoomsIntoCloudFireStore() async {
+//
+//    }
+//
+//    void potentialRooms(var data) {
+//      for(int i = 0; i < data.length; ++i) {
+//
+//      }
+//    }
+//
+//
+//    void bookingInCloudFireStore() async {
+//      for(int i = 0; i < selectedDates.length; ++i) {
+//        var dayOfYear = DateFormat("D").format(selectedDates[i]);
+//        databaseReference.collection("days").getDocuments().then((querySnapshot) {
+//          querySnapshot.documents.forEach((result) {
+//            databaseReference.collection("days").document(dayOfYear).collection("rooms").getDocuments().then((querySnapshot) {
+//              querySnapshot.documents.forEach((result) {
+//                Map<String, dynamic> data = result.data;
+//                print(data);
+//              });
+//            });
+//          });
+//        });
+//
+//      }
+//    }
+
+//    void createRecord() async {
+    //// -------------------------------------------SET DATA--------------------------------------------------------------------------------------------------
+//      await databaseReference.collection("books")
+//          .document("1")
+//          .setData({
+//        'title': 'Mastering Flutter',
+//        'description': 'Programming Guide for Dart'
+//      });
+//
+//      await databaseReference.collection("books")
+//          .document("2")
+//          .setData({
+//        'title': 'Testing out database',
+//        'description': 'Here we gooooo'
+//      });
+//
+//      await databaseReference.collection("books")
+//          .document("3")
+//          .setData({
+//        'title': 'Testing 3 out database',
+//        'description': 'Here we gooooo'
+//      });
+
+    //// -------------------------------------------SET DATA--------------------------------------------------------------------------------------------------
+
+    // ----------------------------------------------ADDED INTO DATABASE-------------------------------------------------------------------------------------------------
+
+//      DocumentReference ref = await databaseReference.collection("books")
+//          .add({
+//        'title': 'Flutter in Action',
+//        'description': 'Complete Programming Guide to learn Flutter'
+//      });
+//      print(ref.documentID);
+
+    // ----------------------------------------------ADDED INTO DATABASE-------------------------------------------------------------------------------------------------
+
+    // ---------------------------------------SUBCOLLECTION---------------------------------------------------------------------------------------------------------
+//    await databaseReference.collection("books").document("4").collection("subcollection").document("trial_in_subcollection").setData({
+//      'title': 'Trying to work with a subcollection',
+//    });
+//
+//    await databaseReference.collection("books").document("4").collection("subcollection").document("trial_in_subcollection2").setData({
+//      'title': 'Trying to work with a subcollection2',
+//      'test' : "test"
+//    });
+
+    // ----------------------------------------SUBCOLLECTION--------------------------------------------------------------------------------------------------------
+
+    // ----------------------------------------GETTING SUBCOLLECTION--------------------------------------------------------------------------------------------------------
+
+//      databaseReference.collection("books").getDocuments().then((querySnapshot) {
+//        querySnapshot.documents.forEach((result) {
+//          databaseReference.collection("books").document(result.documentID).collection("subCollection").getDocuments().then((querySnapshot) {
+//            querySnapshot.documents.forEach((result) {
+//              print(result.data);
+//            });
+//          });
+//        });
+//
+//      });
+
+    // ----------------------------------------GETTING SUBCOLLECTION--------------------------------------------------------------------------------------------------------
+
+    // --------------------------------------ACTUAL DATA FOR HOTEL-------------------------------------------------------------------------------------------------------
+
+//    for(int i = 0; i < 366; ++i) {
+//      await databaseReference.collection("days").document(i.toString()).setData({"dayNum": i.toString()});
+//      await databaseReference.collection("days").document(i.toString()).collection("rooms").document("tempRoom").setData({
+//      'isAvailable' : true,
+//      'checkin':  2,
+//      'checkout': 2,
+//      'roomNum': 0,
+//      });
+//
+//    }
+
+    // -------------------------------------ACTUAL DATA FOR HOTEL--------------------------------------------------------------------------------------------------------
+
+    // -------------------------------------------TRIED OUT ARRAY FOR HOTEL--------------------------------------------------------------------------------------------------
+//    DocumentReference docRef = Firestore.instance.collection("days").document("0");
+//    DocumentSnapshot doc = await docRef.get();
+//    List rooms = doc.data["rooms"];
+//
+//    dynamic room = Room(true, 0, 0, "testRoom");
+//
+//    docRef.updateData(
+//
+//      {
+//        'rooms': FieldValue.arrayUnion(room)
+//      }
+//
+//    );
+
+    // -------------------------------------------TRIED OUT ARRAY FOR HOTEL--------------------------------------------------------------------------------------------------
+
+    //   }
+
     SizedBox checkIn = _buildCheckInButton("Check-in Time");
     SizedBox checkOut = _buildCheckOutButton("Check-out Time");
     return MaterialApp(
@@ -272,10 +463,12 @@ class _BookingPageState extends State<BookingPage> {
                           child: Text("Confirm Booking",
                               style: TextStyle(fontSize: 24)),
                           onPressed: () {
+                            roomsPerDayInDatabase();
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ConfirmBooking(userId: widget.userId)),
+                                  builder: (context) =>
+                                      ConfirmBooking(userId: widget.userId)),
                             );
                           })),
                 ),
