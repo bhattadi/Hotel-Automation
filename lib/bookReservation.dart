@@ -26,7 +26,7 @@ final _creditCardNumber = TextEditingController();
 //with the text on the left and textfield on the right
 class _ConfirmBooking extends State<ConfirmBooking> {
   final FirebaseDatabase _database = FirebaseDatabase.instance;
-
+  bool firstTime = true;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,11 @@ class _ConfirmBooking extends State<ConfirmBooking> {
       _phoneNumber.text = (await _database.reference().child("account").child(widget.userId).child("phoneNumber").once()).value;
     }
 
-    fillInPage();
+    if(firstTime)
+    {
+      fillInPage();
+      firstTime = false;
+    }
 
 
     double spacing = 20;

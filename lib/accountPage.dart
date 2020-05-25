@@ -34,6 +34,7 @@ class _AccountPage extends State<AccountPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   StreamSubscription<Event> _onAccountChangedSubscription;
   Query _accountQuery;
+  bool firstTime = true;
 
   @override
   void initState(){
@@ -93,8 +94,11 @@ class _AccountPage extends State<AccountPage> {
     _phoneNumber.text = (await _database.reference().child("account").child(widget.userId).child("phoneNumber").once()).value;
   }
 
-  fillInPage();
-
+    if(firstTime)
+    {
+      fillInPage();
+      firstTime = false;
+    }
     double spacing = 20;
     return MaterialApp(
       home: Scaffold(
