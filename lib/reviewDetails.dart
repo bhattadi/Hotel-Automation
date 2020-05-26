@@ -31,7 +31,7 @@ class _ReviewDetails extends State<ReviewDetails> {
     List<int> chosenRooms = chosen();
     void bookRoom() {
       for (int i = 0; i < selectedDates.length; ++i) {
-        var dayOfYear = DateFormat("D").format(selectedDates[i]);
+        var dayOfYear = new DateFormat.yMMMd().format(selectedDates[i]);
         for (int j = 0; j < chosenRooms.length; ++j) {
           Room temp = Room(false, getCheckInTime(), getCheckOutTime(), chosenRooms[j]);
           _database
@@ -44,6 +44,8 @@ class _ReviewDetails extends State<ReviewDetails> {
               .update(temp.toJson());
         }
       }
+      clearChosenRooms();
+      chosenRooms.clear();
     }
 
     double spacing = 56;

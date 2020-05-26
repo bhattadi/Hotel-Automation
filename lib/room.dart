@@ -1,5 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class Day{
   List<Room> rooms = new List<Room>(1);
@@ -33,14 +33,17 @@ void setUpCalendar(){
   List<Day> calendar = List<Day>(366);
 
   final FirebaseDatabase _database = FirebaseDatabase.instance;
+  var start = new DateTime(2020, 1, 1, 0, 0, 0);
 
   for(int i = 0; i < calendar.length; ++i)
   {
+    start = start.add(Duration(days: 1));
+    var date = DateFormat.yMMMd().format(start);
     List<Room> rooms = [Room(true, "12:00 AM", "12:00 AM", 0)];
     calendar[i] = Day(rooms, 1);
     for(int j = 0; j < 1; ++j)
     {
-      _database.reference().child("calendar").child("Days").child(i.toString()).child("Room Numbers").child(j.toString()).update(calendar[i].rooms[j].toJson());
+      _database.reference().child("calendar").child("Days").child(date).child("Room Numbers").child(j.toString()).update(calendar[i].rooms[j].toJson());
 //      _database.reference().child("calendar").child("Days").child(i.toString()).child("Room Numbers").child((j + 1).toString()).update(calendar[i].rooms[j].toJson());
 //      _database.reference().child("calendar").child("Days").child(i.toString()).update(calendar[i].toJson());
     }

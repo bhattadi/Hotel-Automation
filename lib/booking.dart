@@ -126,40 +126,44 @@ class _BookingPageState extends State<BookingPage> {
     void daysAndRoomsBookedByUser(List<Room> rooms) {}
 
     void setUpRooms() {
-      for (int i = 0; i < masterListOfRooms.length; ++i) {
-        masterListOfRooms[i] = Room(true, "12:00 AM", "12:00 AM", i + 1);
+      for (int i = 1; i < masterListOfRooms.length; ++i) {
+        masterListOfRooms[i] = Room(true, "12:00 AM", "12:00 AM", i);
       }
     }
 
     Future<List<Room>> openRooms() async {
       setUpRooms();
       DataSnapshot roomsInDatabase;
-      List<Room> usableRooms = masterListOfRooms;
+      List<Room> usableRooms = List<Room>.from(masterListOfRooms);
       //print("MasterList Rooms: $masterListOfRooms");
       for (int i = 0; i < selectedDates.length; ++i) {
-        var dayOfYear = DateFormat("D").format(selectedDates[i]);
+        var dayOfYear = new DateFormat.yMMMd().format(selectedDates[i]);
         roomsInDatabase = await _database
             .reference()
             .child("calendar")
             .child("Days")
-            .child(dayOfYear.toString())
+            .child(dayOfYear)
             .child("Room Numbers")
             .once();
 
         List<dynamic> rooms = roomsInDatabase.value;
-//        print("Rooms: $rooms");
+        print("--------------------------------------");
+        print(rooms[0] is Map);
 
+        
         for (int j = 0; j < rooms.length; ++j) {
           if (rooms[j]["isAvailable"] == false) {
-            int index = masterListOfRooms.indexOf(rooms[j]["roomNum"]);
-            usableRooms.remove(masterListOfRooms[index]);
+            print("Got into the false if");
+            // int index = masterListOfRooms.indexOf();
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            usableRooms.remove(masterListOfRooms[rooms[j]["roomNum"]]);
+            print(usableRooms.toString());
           }
         }
 
 //     print(rooms[0]["isAvailable"]);
       }
-//      print(usableRooms);
-
+      print(usableRooms);
       return usableRooms;
     }
 
@@ -574,6 +578,10 @@ List<int> chosen() {
 //Function to get the Check In Time in a different file
 String getCheckInTime() {
   return formatTimeOfDay(_timeIn);
+}
+
+void clearChosenRooms() {
+  chosenRooms.clear();
 }
 
 //Function to get the Check Out Time in a different file
