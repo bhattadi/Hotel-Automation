@@ -126,6 +126,7 @@ class _BookingPageState extends State<BookingPage> {
     void daysAndRoomsBookedByUser(List<Room> rooms) {}
 
     void setUpRooms() {
+     masterListOfRooms[0] = Room(false, "Don't touch!", "Don't touch!", 0);
       for (int i = 1; i < masterListOfRooms.length; ++i) {
         masterListOfRooms[i] = Room(true, "12:00 AM", "12:00 AM", i);
       }
@@ -307,6 +308,31 @@ class _BookingPageState extends State<BookingPage> {
 
     //   }
 
+    Icon ifNotZero(int value) {
+      if(value != 0) {
+       return Icon(
+            chosenRooms.contains(value)
+                ? Icons.check
+                : Icons.add_circle_outline,
+            color: chosenRooms.contains(
+            value)
+            ? Colors.green
+            : null
+       );
+      }
+    }
+
+
+//
+//    Icon(
+//        chosenRooms.contains(content[index].roomNum)
+//            ? Icons.check
+//            : Icons.add_circle_outline,
+//        color: chosenRooms.contains(
+//            content[index].roomNum)
+//            ? Colors.green
+//            : null,
+
     showRooms() {
       return StatefulBuilder(builder: (context, setState) {
         return AlertDialog(
@@ -328,28 +354,28 @@ class _BookingPageState extends State<BookingPage> {
                       return new ListView.builder(
                         itemCount: content.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return new ListTile(
-                            title: Text(
-                                "Room: " + (content[index].roomNum).toString()),
-                            trailing: Icon(
-                              chosenRooms.contains(content[index].roomNum)
-                                  ? Icons.check
-                                  : Icons.add_circle_outline,
-                              color: chosenRooms.contains(content[index].roomNum)
-                                  ? Colors.green
-                                  : null,
-                            ),
-                            onTap: () {
-                              setState(() {
-                                if (chosenRooms
-                                    .contains(content[index].roomNum)) {
-                                  chosenRooms.remove(content[index].roomNum);
-                                } else {
-                                  chosenRooms.add(content[index].roomNum);
-                                }
-                              });
-                            },
-                          );
+                          //if(content[index].roomNum != 0) {
+                            return new ListTile(
+                              title: Text(
+                                content[index].roomNum != 0 ?
+                                  "Room: " +
+                                      (content[index].roomNum).toString() : "Select a Room"),
+                              trailing: ifNotZero(content[index].roomNum),
+                              onTap: () {
+                                setState(() {
+                                  if(content[index].roomNum != 0) {
+                                    if (chosenRooms
+                                        .contains(content[index].roomNum)) {
+                                      chosenRooms.remove(
+                                          content[index].roomNum);
+                                    } else {
+                                      chosenRooms.add(content[index].roomNum);
+                                    }
+                                  }
+                                });
+                              },
+                            );
+                          //}
                         },
                       );
                     }),
