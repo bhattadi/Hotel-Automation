@@ -10,7 +10,7 @@ void main() => runApp(HotelAutomation());
 class HotelAutomation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // setUpCalendar();
+    setUpCalendar();
     return new MaterialApp(
         title: 'Hotel Automation',
         debugShowCheckedModeBanner: false,

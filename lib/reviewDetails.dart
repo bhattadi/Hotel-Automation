@@ -5,6 +5,7 @@ import 'package:flutterapp/booking.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutterapp/room.dart';
 import 'package:intl/intl.dart';
+import 'package:flutterapp/reservation.dart';
 
 class ReviewDetails extends StatefulWidget {
   ReviewDetails({Key key, this.userId}) : super(key: key);
@@ -29,11 +30,57 @@ class _ReviewDetails extends State<ReviewDetails> {
   Widget build(BuildContext context) {
     List<DateTime> selectedDates = dates();
     List<int> chosenRooms = chosen();
+    // print("Chosen Rooms: ${chosenRooms.length}");
+
+//    void roomsPerDay(var dayOfYear) async {
+//      DataSnapshot roomsInDatabase;
+//      roomsInDatabase = await _database
+//          .reference()
+//          .child("calendar")
+//          .child("Days")
+//          .child(dayOfYear)
+//          .child("Room Numbers")
+//          .once();
+//
+//      List<dynamic> rooms = roomsInDatabase.value;
+//
+//      print("Rooms from database in review details on $dayOfYear: $rooms");
+//    }
+
+    void createReservation() {
+      Reservation reservation = Reservation(chosenRooms,
+          selectedDates.first.toString(), selectedDates.last.toString());
+      print("Reservation room nums: ${reservation.roomNums}");
+      print("Reservation start date: ${reservation.startDate}");
+      print("Reservation end date: ${reservation.endDate}");
+
+      //TODO: LINES 59 - 63 ARE CAUSING THE EMULATOR TO CRASH
+      _database
+          .reference()
+          .child("account")
+          .child(widget.userId)
+          .child("reservations")
+          .child(reservation.startDate + " - " + reservation.endDate)
+          .update(reservation.toJson());
+
+      for (int i = 0; i < chosenRooms.length; ++i) {
+        _database
+            .reference()
+            .child("account")
+            .child(widget.userId)
+            .child("reservations")
+            .child(reservation.startDate + " - " + reservation.endDate)
+            .child("roomNums")
+            .set(chosenRooms[i].toString());
+      }
+    }
+
     void bookRoom() {
       for (int i = 0; i < selectedDates.length; ++i) {
         var dayOfYear = new DateFormat.yMMMd().format(selectedDates[i]);
         for (int j = 0; j < chosenRooms.length; ++j) {
-          Room temp = Room(false, getCheckInTime(), getCheckOutTime(), chosenRooms[j]);
+          Room temp =
+              Room(false, getCheckInTime(), getCheckOutTime(), chosenRooms[j]);
           _database
               .reference()
               .child("calendar")
@@ -43,7 +90,9 @@ class _ReviewDetails extends State<ReviewDetails> {
               .child(chosenRooms[j].toString())
               .update(temp.toJson());
         }
+//        roomsPerDay(dayOfYear);
       }
+      createReservation();
       clearChosenRooms();
       chosenRooms.clear();
     }
