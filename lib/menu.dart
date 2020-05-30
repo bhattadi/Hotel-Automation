@@ -40,7 +40,7 @@ class _Menu extends State<Menu> {
       else if (lab == "Edit") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => EditBookingPage()),
+          MaterialPageRoute(builder: (context) => EditBookingPage(userId: widget.userId)),
         );
       }
 

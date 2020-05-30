@@ -48,20 +48,11 @@ class _ReviewDetails extends State<ReviewDetails> {
 //    }
 
     void createReservation() {
-      Reservation reservation = Reservation(chosenRooms,
-          selectedDates.first.toString(), selectedDates.last.toString());
-      print("Reservation room nums: ${reservation.roomNums}");
-      print("Reservation start date: ${reservation.startDate}");
-      print("Reservation end date: ${reservation.endDate}");
+      Reservation reservation = Reservation(DateFormat.yMMMd().format(selectedDates.first), 
+                                            DateFormat.yMMMd().format(selectedDates.last));
 
-      //TODO: LINES 59 - 63 ARE CAUSING THE EMULATOR TO CRASH
-      _database
-          .reference()
-          .child("account")
-          .child(widget.userId)
-          .child("reservations")
-          .child(reservation.startDate + " - " + reservation.endDate)
-          .update(reservation.toJson());
+      String range = DateFormat.yMMMd().format(selectedDates.first) +
+                      " - " + DateFormat.yMMMd().format(selectedDates.last);
 
       for (int i = 0; i < chosenRooms.length; ++i) {
         _database
@@ -69,9 +60,10 @@ class _ReviewDetails extends State<ReviewDetails> {
             .child("account")
             .child(widget.userId)
             .child("reservations")
-            .child(reservation.startDate + " - " + reservation.endDate)
+            .child(range)
             .child("roomNums")
-            .set(chosenRooms[i].toString());
+            .child(chosenRooms[i].toString())
+            .update(reservation.toJson());
       }
     }
 
